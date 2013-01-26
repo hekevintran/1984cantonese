@@ -38,15 +38,17 @@ def findOccurences():
     chars = [line.split('\t')[0] for line in open("characterGlossary","r").readlines()]
     occurences = open("occurences","w")
     writeHeadings(occurences)
-    toWrite = []
-    for char in chars:
-        toWrite.append([char])
-        for a,filename in allFiles():
+    toWrite = []    
+    for a,filename in allFiles():
+        for i, char in enumerate(chars):
+            if len(toWrite) < i + 1:
+                toWrite.append([char])
             #print("Finding occurences in " + filename)
             if char in a.read():
-                toWrite[:-1].append('x')
+                toWrite[i].append('x')
             else:
-                toWrite[:-1].append('')
+                toWrite[i].append('')
+            a.seek(0)
     occurences.write('\n'.join('\t'.join(line) for line in toWrite))
     occurences.close()
         
@@ -56,10 +58,8 @@ def findUnknownWords():
     toWrite = []
     for a,filename in allFiles():
         #print("Searching through " + filename)
-        matches = re.search(r'？？.+?？？', a.read())
-        if matches:
-            for match in matches:
-                toWrite.append(filename + "\t" + re.replace("？？","",match))
+        for match in re.finditer(r'？？(.+?)？？', a.read()):
+            toWrite.append(filename + "\t" + match.group(1))
     unknowns.write('\n'.join(toWrite))
     unknowns.close()
 
@@ -84,14 +84,16 @@ def replaceVariants():
     
 def updateStats():
     # A dict of statistic names to lambda functions
-    stats = { "characters" : lambda s:len(s) - len(re.search(r'（|）|—|：|；|，|。|「|」|『|』|！|？|、|\n', s).groups()) }
+    stats = { "characters" : (lambda s:len(s) - len(re.search(r'（|）|—|：|；|，|。|「|」|『|』|！|？|、|\n', s).groups())) }
     record = open("stats","w")
     writeHeadings(record)
     toWrite = []
-    for stat,f in stats.items():
-        toWrite.append([stat])
-        for a,filename in allFiles():
-            toWrite[:-1] += '\t' + str(f(a.read()))
+    for a,filename in allFiles():
+        for i,(stat,f) in enumerate(stats.items()):
+            if len(toWrite) < i + 1:
+                toWrite.append(stat)
+            toWrite[i] += '\t' + str(f(a.read()))
+            a.seek(0)
     record.write('\n'.join(toWrite))
     record.close()
             
