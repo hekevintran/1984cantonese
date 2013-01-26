@@ -12,6 +12,7 @@ updateStats: updates various statistics (tab-separated)
 """
 
 import re
+from time import clock
 
 allTexts = ["part1/" + str(n) for n in range(1,9)] + ["part2/" + str(n) for n in range(1,10)] + ["part3/" + str(n) for n in range(1,7)] + ["other/" + title for title in ["foreword","appendix","afterword"]]
 
@@ -37,23 +38,29 @@ def findOccurences():
     chars = [line.split('\t')[0] for line in open("characterGlossary","r").readlines()]
     occurences = open("occurences","w")
     writeHeadings(occurences)
+    toWrite = []
     for char in chars:
-        occurences.write("\n" + char);
+        toWrite.append([char])
         for a,filename in allFiles():
-            print("Finding occurences in " + filename)
-            occurences.write('\t')
+            #print("Finding occurences in " + filename)
             if char in a.read():
-                occurences.write('x')
+                toWrite[:-1].append('x')
+            else:
+                toWrite[:-1].append('')
+    occurences.write('\n'.join('\t'.join(line) for line in toWrite))
+    occurences.close()
         
 
 def findUnknownWords():
     unknowns = open("unknowns", "w")
+    toWrite = []
     for a,filename in allFiles():
-        print("Searching through " + filename)
+        #print("Searching through " + filename)
         matches = re.search(r'？？.+?？？', a.read())
         if matches:
             for match in matches:
-                unknowns.write(filename + "\t" + re.replace("？？","",match) + "\n")
+                toWrite.append(filename + "\t" + re.replace("？？","",match))
+    unknowns.write('\n'.join(toWrite))
     unknowns.close()
 
 def replaceVariants():
@@ -68,7 +75,7 @@ def replaceVariants():
     "牛豆":"怐豆", "(煅煉|鍛煉|煅鍊)":"鍛鍊", "花崗靑":"花剛巖", "撴":"撉", "下巴":"下爬", "嗍":"欶", "掰":"擘", "等於|等如":"等于", "研":"硏"}
 
     for a,filename in allFiles():
-        print("Replacing for " + filename)
+        #print("Replacing for " + filename)
         body = a.read()
         for k,v in chars.items():
             body = re.sub(k, v, body) 
@@ -80,16 +87,22 @@ def updateStats():
     stats = { "characters" : lambda s:len(s) - len(re.search(r'（|）|—|：|；|，|。|「|」|『|』|！|？|、|\n', s).groups()) }
     record = open("stats","w")
     writeHeadings(record)
+    toWrite = []
     for stat,f in stats.items():
-        record.write(stat)
+        toWrite.append([stat])
         for a,filename in allFiles():
-            record.write('\t' + str(f(a.read())))
-        record.write("\n")
+            toWrite[:-1] += '\t' + str(f(a.read()))
+    record.write('\n'.join(toWrite))
     record.close()
             
 
 if __name__ == "__main__":
+    a = clock()
     replaceVariants()    
+    print("Variants replaced: {} ticks".format(clock() - a))
     findOccurences()
+    print("Occurences found: {} ticks".format(clock() - a))
     findUnknownWords()
+    print("Unknown words found: {} ticks".format(clock() - a))
     updateStats()
+    print("Elapsed: {} ticks".format(clock() - a))
