@@ -81,6 +81,12 @@ def replaceVariants():
             body = re.sub(k, v, body) 
         a.seek(0)
         a.write(body)
+
+def replaceGlobally(a,b):
+    for a,filename in allFiles():
+        body = re.sub(a, b, a.read())
+        a.seek(0)
+        a.write(body)
     
 def updateStats():
     # A dict of statistic names to lambda functions
