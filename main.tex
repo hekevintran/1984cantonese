@@ -29,26 +29,30 @@
 \XeTeXcharclass `『 \quotes
 \XeTeXcharclass `』 \quotes
 \XeTeXinterchartoks 0 \quotes = {\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \quotes 0 = {\endgroup\end{turn}}
 \XeTeXinterchartoks 255 \quotes = {\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \quotes 0 = {\endgroup\end{turn}}
 \XeTeXinterchartoks \quotes 255 = {\endgroup\end{turn}}
 
 \newXeTeXintercharclass\colons
 \XeTeXcharclass `： \colons
 \XeTeXcharclass `； \colons
 \XeTeXinterchartoks 0 \colons = {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \colons 0 = {\endgroup\end{turn}\hskip0.3em}
 \XeTeXinterchartoks 255 \colons = {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \colons 0 = {\endgroup\end{turn}\hskip0.3em}
 \XeTeXinterchartoks \colons 255 = {\endgroup\end{turn}\hskip0.3em}
 
 \newXeTeXintercharclass\smalls
 \XeTeXcharclass `。 \smalls
 \XeTeXcharclass `， \smalls
 \XeTeXinterchartoks 0 \smalls = {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \smalls 0 = {\endgroup\end{turn}\hskip0.3em}
 \XeTeXinterchartoks 255 \smalls = {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \smalls 0 = {\endgroup\end{turn}\hskip0.3em}
 \XeTeXinterchartoks \smalls 255 = {\endgroup\end{turn}\hskip0.3em}
-\XeTeXinterchartoks \smalls \quotes = {\endgroup\end{turn}\hskip0.3em}
+
+\XeTeXinterchartoks \quotes \colons = {\endgroup\end{turn}\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \colons \quotes = {\endgroup\end{turn}\hskip0.3em\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \smalls \quotes = {\endgroup\end{turn}\hskip0.3em\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \quotes \smalls = {\endgroup\end{turn}\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
 
 \begin{document}
 I am a塵 super man. Super duper duper man. I am.性
@@ -60,7 +64,7 @@ A new German people! Heilq!k性必心講令令令令\rotatebox{45}{𠆭}講光�
 \begin{minipage}{15em}
 \CJKfamily{zhvert}
 %\xeCJKsetwidth{。，？「」；：}{1em}
-性必心講令令令令𠆭講囧𠞉鐵感囧淋攞識啱滕，愼慎西岸聲牀羅漢囧生歲藍火識疊疊疊疊疊「疊疊疊疊疊疊疊；疊疊疊疊疊疊：疊疊疊。」
+性必心講令令令令𠆭講囧𠞉鐵感囧淋攞識啱滕，愼慎西岸聲牀羅漢囧生歲藍火識疊疊疊疊疊「疊疊疊疊疊疊疊；疊疊疊疊疊疊：疊疊疊。」\include{./part1/1}
 \end{minipage}
 \end{rotate}
 
