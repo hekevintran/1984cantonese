@@ -12,14 +12,14 @@
 \setCJKmainfont{Sun-ExtA} 
 \setCJKfallbackfamilyfont{rm}{Sun-ExtB}
 
-\newcommand*\CJKmovesymbol[1]{\lower0.0em\hbox{#1}}
+\newcommand*\CJKmovesymbol[1]{\raise0.0em\hbox{#1}}
 \newcommand*\CJKvert{
 %\let\CJKsymbol\CJKmovesymbol 
-%\let\CJKpunctsymbol\CJKmovesymbol
+\let\CJKpunctsymbol\CJKmovesymbol
 }
 
 \setCJKfamilyfont{puncts}[Vertical=RotatedGlyphs]{AR PL UMing HK}
-\setCJKfamilyfont{smalls}[Vertical=RotatedGlyphs]{AR PL UMing HK}
+\setCJKfamilyfont{smalls}[Vertical=RotatedGlyphs]{Sun-ExtB}
 
 %http://tex.stackexchange.com/questions/59664/using-active-characters-to-swap-fonts
 \XeTeXinterchartokenstate=1
@@ -28,43 +28,65 @@
 \XeTeXcharclass `」 \quotes
 \XeTeXcharclass `『 \quotes
 \XeTeXcharclass `』 \quotes
-\XeTeXinterchartoks 0 \quotes = {\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks 255 \quotes = {\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \quotes 0 = {\endgroup\end{turn}}
-\XeTeXinterchartoks \quotes 255 = {\endgroup\end{turn}}
+\XeTeXcharclass `（ \quotes
+\XeTeXcharclass `） \quotes
+\newcommand{\quotesBegin} {\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks 0 \quotes = {\quotesBegin}
+\XeTeXinterchartoks 1 \quotes = {\quotesBegin}
+\XeTeXinterchartoks 255 \quotes = {\quotesBegin}
+\newcommand{\quotesEnd} {\endgroup\end{turn}}
+\XeTeXinterchartoks \quotes 0 = {\quotesEnd}
+\XeTeXinterchartoks \quotes 1 = {\quotesEnd}
+\XeTeXinterchartoks \quotes 255 = {\quotesEnd}
 
 \newXeTeXintercharclass\colons
 \XeTeXcharclass `： \colons
 \XeTeXcharclass `； \colons
-\XeTeXinterchartoks 0 \colons = {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks 255 \colons = {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \colons 0 = {\endgroup\end{turn}\hskip0.3em}
-\XeTeXinterchartoks \colons 255 = {\endgroup\end{turn}\hskip0.3em}
+\XeTeXcharclass `！ \colons
+\XeTeXcharclass `？ \colons
+\newcommand{\colonsBegin} {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks 0 \colons = {\colonsBegin}
+\XeTeXinterchartoks 1 \colons = {\colonsBegin}
+\XeTeXinterchartoks 255 \colons = {\colonsBegin}
+\newcommand{\colonsEnd} {\endgroup\end{turn}\hskip0.3em}
+\XeTeXinterchartoks \colons 0 = {\colonsEnd}
+\XeTeXinterchartoks \colons 1 = {\colonsEnd}
+\XeTeXinterchartoks \colons 255 = {\colonsEnd}
 
 \newXeTeXintercharclass\smalls
 \XeTeXcharclass `。 \smalls
 \XeTeXcharclass `， \smalls
-\XeTeXinterchartoks 0 \smalls = {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks 255 \smalls = {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \smalls 0 = {\endgroup\end{turn}\hskip0.3em}
-\XeTeXinterchartoks \smalls 255 = {\endgroup\end{turn}\hskip0.3em}
+\XeTeXcharclass `、 \smalls
+\newcommand{\smallsBegin} {\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{smalls}\vspace{-1em}}
+\XeTeXinterchartoks 0 \smalls = {\smallsBegin}
+\XeTeXinterchartoks 1 \smalls = {\smallsBegin}
+\XeTeXinterchartoks 255 \smalls = {\smallsBegin}
+\newcommand{\smallsEnd} {\endgroup\end{turn}\hskip0.3em}
+\XeTeXinterchartoks \smalls 0 = {\smallsEnd}
+\XeTeXinterchartoks \smalls 1 = {\smallsEnd}
+\XeTeXinterchartoks \smalls 255 = {\smallsEnd}
 
-\XeTeXinterchartoks \quotes \colons = {\endgroup\end{turn}\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \colons \quotes = {\endgroup\end{turn}\hskip0.3em\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \smalls \quotes = {\endgroup\end{turn}\hskip0.3em\begin{turn}{-0}\begingroup\CJKfamily{puncts}}
-\XeTeXinterchartoks \quotes \smalls = {\endgroup\end{turn}\hskip0.3em\begin{turn}{90}\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \quotes \colons = {\quotesEnd\colonsBegin}
+\XeTeXinterchartoks \colons \quotes = {\colonsEnd\quotesBegin}
+\XeTeXinterchartoks \quotes \smalls = {\quotesEnd\smallsBegin}
+\XeTeXinterchartoks \smalls \quotes = {\smallsEnd\quotesBegin}
+\XeTeXinterchartoks \smalls \colons = {\smallsEnd\colonsBegin}
+\XeTeXinterchartoks \colons \smalls = {\colonsEnd\smallsBegin}
+
 
 \begin{document}
 I am a塵 super man. Super duper duper man. I am.性
 \begin{quote}
-A new German people! Heilq!k性必心講令令令令\rotatebox{45}{𠆭}講光𠞉。，直零
+A new German people! Heilq!k性必心講令令令令\rotatebox{45}{𠆭}講光。，直零
 \end{quote}
 
 \begin{rotate}{-90}
 \begin{minipage}{15em}
 \CJKfamily{zhvert}
+\CJKvert
 %\xeCJKsetwidth{。，？「」；：}{1em}
-性必心講令令令令𠆭講囧𠞉鐵感囧淋攞識啱滕，愼慎西岸聲牀羅漢囧生歲藍火識疊疊疊疊疊「疊疊疊疊疊疊疊；疊疊疊疊疊疊：疊疊疊。」\include{./part1/1}
+性必心講令令令令𠆭講囧𠞉鐵感囧淋攞識啱滕，愼慎西岸聲牀羅漢囧生歲藍火識疊疊疊疊疊「疊疊疊疊疊疊疊；疊疊疊疊疊疊：疊疊疊。」
+%\include{./part1/1}
 \end{minipage}
 \end{rotate}
 
