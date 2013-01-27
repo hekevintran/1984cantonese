@@ -1,0 +1,68 @@
+\documentclass[a5paper,12pt]{article}
+\usepackage{fontspec}
+\setmainfont{Sun-ExtA}
+\usepackage[fallback]{xeCJK}
+\usepackage{rotating}
+
+\newfontlanguage{Chinese}{CHN}
+
+\setCJKfamilyfont{zhvert}[Vertical=RotatedGlyphs]{Sun-ExtA} 
+\setCJKfallbackfamilyfont{zhvert}[Vertical=RotatedGlyphs]{Sun-ExtB}
+
+\setCJKmainfont{Sun-ExtA} 
+\setCJKfallbackfamilyfont{rm}{Sun-ExtB}
+
+\newcommand*\CJKmovesymbol[1]{\raise.35em\hbox{#1}}
+\newcommand*\CJKvert{
+%\let\CJKsymbol\CJKmovesymbol 
+\let\CJKpunctsymbol\CJKmovesymbol
+}
+
+\setCJKfamilyfont{puncts}[Vertical=RotatedGlyphs]{AR PL UMing HK}
+\setCJKfamilyfont{smalls}[Vertical=RotatedGlyphs]{AR PL UMing HK}
+
+%http://tex.stackexchange.com/questions/59664/using-active-characters-to-swap-fonts
+\XeTeXinterchartokenstate=1
+\newXeTeXintercharclass\quotes
+\XeTeXcharclass `「 \quotes
+\XeTeXcharclass `」 \quotes
+\XeTeXcharclass `『 \quotes
+\XeTeXcharclass `』 \quotes
+\XeTeXinterchartoks 0 \quotes = {\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \quotes 0 = {\endgroup}
+\XeTeXinterchartoks 255 \quotes = {\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \quotes 255 = {\endgroup}
+
+\newXeTeXintercharclass\colons
+\XeTeXcharclass `： \colons
+\XeTeXcharclass `； \colons
+\XeTeXinterchartoks 0 \colons = {\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \colons 0 = {\endgroup}
+\XeTeXinterchartoks 255 \colons = {\begingroup\CJKfamily{puncts}}
+\XeTeXinterchartoks \colons 255 = {\endgroup}
+
+
+\newXeTeXintercharclass\smalls
+\XeTeXcharclass `。 \smalls
+\XeTeXcharclass `， \smalls
+\XeTeXinterchartoks 0 \smalls = {\begingroup}
+\XeTeXinterchartoks \smalls 0 = {\endgroup}
+\XeTeXinterchartoks 255 \smalls = {\begingroup}
+\XeTeXinterchartoks \smalls 255 = {\endgroup}
+
+\begin{document}
+I am a塵 super man. Super duper duper man. I am.性
+\begin{quote}
+A new German people! Heilq!k性必心講令令令令\rotatebox{45}{𠆭}講光𠞉。，直零
+\end{quote}
+
+\rotatebox{-90}{
+\begin{minipage}{15em}
+\CJKfamily{zhvert}
+\CJKvert
+%\xeCJKsetwidth{。，？「」；：}{1em}
+性必心講令令令令𠆭講囧𠞉鐵感囧淋攞識啱滕，愼慎西岸聲牀羅漢囧生歲藍火識疊疊疊疊疊「疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊。」
+\end{minipage}
+}
+
+\end{document}
