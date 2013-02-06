@@ -14,7 +14,7 @@ updateStats: updates various statistics (tab-separated)
 import re
 from time import clock
 
-allTexts = ["part1/" + str(n) for n in range(1,9)] + ["part2/" + str(n) for n in range(1,10)] + ["part3/" + str(n) for n in range(1,7)] + ["other/" + title for title in ["foreword","appendix","afterword"]]
+allTexts = ["part1/" + str(n) + ".tex" for n in range(1,9)] + ["part2/" + str(n) + ".tex" for n in range(1,10)] + ["part3/" + str(n) + ".tex" for n in range(1,7)] + ["other/" + title for title in ["foreword","appendix","afterword"]]
 
 """
 Helper generator that yields tuples of file objects and filenames (str)
@@ -58,7 +58,7 @@ def findUnknownWords():
     toWrite = []
     for a,filename in allFiles():
         #print("Searching through " + filename)
-        for match in re.finditer(r'？？(.+?)？？', a.read()):
+        for match in re.finditer(r'？？(.+?)？？', a.read(), re.DOTALL):
             toWrite.append(filename + "\t" + match.group(1))
     unknowns.write('\n'.join(toWrite))
     unknowns.close()
@@ -72,7 +72,11 @@ def replaceVariants():
     #But 象 > 𧰼
     "像":"像", "史密斯":"斯滅", "㦸":"戟", "批蕩":"批盪", "模仿":"模倣", "傚仿|效倣|效仿":"傚倣", "逗留":"逗遛", "朵":"朶", "棵":"樖", "床":"牀", "黄":"黃", "部分":"部份", "屏":"屛", "偋":"𠌸", "清":"淸", "青":"靑", "麵":"麪", "雕":"彫", "游行":"遊行", "巡游":"巡遊", "逼近":"迫近", "螺母":"螺帽", "墻":"牆", "部分":"部份", "犁":"犂", "了解":"瞭解", 
     # 嫗㛒?    
-    "牛豆":"怐豆", "(煅煉|鍛煉|煅鍊)":"鍛鍊", "花崗靑":"花剛巖", "撴":"撉", "下巴":"下爬", "嗍":"欶", "掰":"擘", "等於|等如":"等于", "研":"硏", "令":"令","零":"零","慎":"愼","說":"說"}
+    "牛豆":"怐豆", "(煅煉|鍛煉|煅鍊)":"鍛鍊", "花崗靑":"花剛巖", "撴":"撉", "下巴":"下爬", "嗍":"欶", "掰":"擘", "等於|等如":"等于", "研":"硏", "令":"令","零":"零","慎":"愼","說":"說",
+	#︐︑︒︓︔︕︖﹃﹄﹁﹂︵︶︽︾︙︱
+	"「":"﹁","」":"﹂","『":"﹃","』":"﹄","，":"︐","、":"︑","。":"︒",
+"：":"︓","；":"︔","！":"︕","？":"︖","（":"︵","）":"︶","《":"",
+"》":"","—":"︱","…":"︙"," · ":"・"}
 
     for a,filename in allFiles():
         #print("Replacing for " + filename)

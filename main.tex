@@ -1,127 +1,73 @@
-\documentclass[a5paper,12pt]{article}
+\documentclass[a5paper,12pt]{memoir}
+%No need to use -papersize
 \usepackage{fontspec}
 \setmainfont{Sun-ExtA}
 \usepackage[fallback]{xeCJK}
 \usepackage{rotating}
 \usepackage{adjustbox}
-
+\usepackage{verbatim}
+\usepackage[normalem]{ulem}
+\usepackage{lscape}
+\usepackage{etoolbox}
 \newfontlanguage{Chinese}{CHN}
 
-\setCJKfamilyfont{zhvert}[Vertical=RotatedGlyphs]{Sun-ExtA} 
+
+
+%\xeCJKDeclareSubCJKBlock{puncts}{`。,`，,`、,`？,`！,`：,`；,`﹃,`﹄,`﹁,`﹂}
+\xeCJKDeclareSubCJKBlock{puncts}{"FE10 -> "FE19, "FE30 -> "FE48}
+\setCJKfamilyfont{zhvert}[puncts={[Vertical=RotatedGlyphs]{AR PL UMing HK}}, Vertical=RotatedGlyphs]{Sun-ExtA} 
 \setCJKfallbackfamilyfont{zhvert}[Vertical=RotatedGlyphs]{Sun-ExtB}
+\setCJKmainfont{Sun-ExtA}
 
-\setCJKmainfont{Sun-ExtA} 
-\setCJKfallbackfamilyfont{rm}{Sun-ExtB}
+%。，、？！：；「」『』
+%︐︑︒︓︔︕︖﹃﹄﹁﹂︵︶︽︾︙︱
+%\begin{comment}
+\makepagestyle{myPage}{%
+}
+\makeevenhead{myPage}{}{}{}
+\makeoddhead{myPage}{}{}{}
+\makeevenfoot{myPage}{}{\thepage}{}
+\makeoddfoot{myPage}{}{\thepage}{}
+\makechapterstyle{myChapter}{%
+	\def\chapterheadstart{\vspace*{\beforechapskip}}
+	%\def\printchaptername{\chapnamefont \@chapapp}
+	\def\printchaptername{}
+	\def\chapternamenum{\space}
+	%\def\printchapternum{\chapnumfont \thechapter}
+	\def\printchapternum{}
+	\def\afterchapternum{\par\nobreak\vskip \midchapskip}
+	\def\printchapternonum{}
+	\def\printchaptertitle##1{\CJKfamily{zhvert} \large ##1}
+	\def\afterchaptertitle{\par\nobreak\vskip \afterchapskip}
+}
+%\end{comment}
 
-%mixed = 。？！
-\newcommand*\CJKmovesymbol[1]{\raise0.5em\hbox{#1}}
-\newcommand*\CJKmove{% do not modify the spacing between punctuations
-  %\let\CJKsymbol\CJKmovesymbol
-
-  \let\CJKpunctsymbol\CJKmovesymbol}
-
-\setCJKfamilyfont{puncts}[Vertical=RotatedGlyphs]{AR PL UMing HK}
-\setCJKfamilyfont{smalls}[Vertical=RotatedGlyphs]{Sun-ExtB}
-
-%。，、？！：；「」『』﹃﹄﹁﹂
-\XeTeXinterchartokenstate=1
-
-\newXeTeXintercharclass\quotes
-\XeTeXcharclass `『 \quotes
-\XeTeXcharclass `』 \quotes
-\XeTeXcharclass `「 \quotes
-\XeTeXcharclass `」 \quotes
-\newcommand*{\quotesBegin} {
-%Centred and heightless
-\begin{adjustbox}{margin=-0.5em 0em 1em 0,trim=0.0em 0.33em 9em 0}\begin{turn}{+0}\bgroup}
-\XeTeXinterchartoks 0 \quotes = {\quotesBegin}
-\XeTeXinterchartoks 1 \quotes = {\quotesBegin}
-\XeTeXinterchartoks 255 \quotes = {\quotesBegin}
-\newcommand*{\quotesEnd} {\egroup\end{turn}\end{adjustbox}}
-\XeTeXinterchartoks \quotes 0 = {\quotesEnd}
-\XeTeXinterchartoks \quotes 1 = {\quotesEnd}
-\XeTeXinterchartoks \quotes 255 = {\quotesEnd}
-
-\newXeTeXintercharclass\parens
-\XeTeXcharclass `（ \parens
-\XeTeXcharclass `） \parens
-\newcommand*{\parensBegin} {
-%Centred and heightless
-\begin{adjustbox}{margin=-0.83em 0em 0.33em 0,trim=0.0em 0.4em 9em 0}\begin{turn}{+0}\bgroup}
-\XeTeXinterchartoks 0 \parens = {\parensBegin}
-\XeTeXinterchartoks 1 \parens = {\parensBegin}
-\XeTeXinterchartoks 255 \parens = {\parensBegin}
-\newcommand*{\parensEnd} {\egroup\end{turn}\end{adjustbox}}
-\XeTeXinterchartoks \parens 0 = {\parensEnd}
-\XeTeXinterchartoks \parens 1 = {\parensEnd}
-\XeTeXinterchartoks \parens 255 = {\parensEnd}
-
-\newXeTeXintercharclass\colons
-\XeTeXcharclass `： \colons
-\XeTeXcharclass `； \colons
-\newcommand*{\colonsBegin} {
-%Centred and heightless
-\begin{adjustbox}{margin=-.25em 0em .75em 0,trim=0.0em 0.2em 9em 0}\begin{turn}{+90}\bgroup}
-\XeTeXinterchartoks 0 \colons = {\colonsBegin}
-\XeTeXinterchartoks 1 \colons = {\colonsBegin}
-\XeTeXinterchartoks 255 \colons = {\colonsBegin}
-\newcommand*{\colonsEnd} {\egroup\end{turn}\end{adjustbox}}
-\XeTeXinterchartoks \colons 0 = {\colonsEnd}
-\XeTeXinterchartoks \colons 1 = {\colonsEnd}
-\XeTeXinterchartoks \colons 255 = {\colonsEnd}
-
-\newXeTeXintercharclass\marks
-\XeTeXcharclass `？ \marks
-\XeTeXcharclass `！ \marks
-\newcommand*{\marksBegin} {
-%Centred and heightless
-\begin{adjustbox}{margin=-.33em 0em .83em 0,trim=0em 0.25em 9em 0}\begin{turn}{+90}\bgroup}
-\XeTeXinterchartoks 0 \marks = {\marksBegin}
-\XeTeXinterchartoks 1 \marks = {\marksBegin}
-\XeTeXinterchartoks 255 \marks = {\marksBegin}
-\newcommand*{\marksEnd} {\egroup\end{turn}\end{adjustbox}}
-\XeTeXinterchartoks \marks 0 = {\marksEnd}
-\XeTeXinterchartoks \marks 1 = {\marksEnd}
-\XeTeXinterchartoks \marks 255 = {\marksEnd}
-
-\newXeTeXintercharclass\periods
-\XeTeXcharclass `。 \periods
-\XeTeXcharclass `、 \periods
-\XeTeXcharclass `， \periods
-\newcommand*{\periodsBegin} {
-%Centred and heightless
-\begin{adjustbox}{margin=-0.16em 0em 0.66em 0,trim=0em 0.2em 9em 0}\begin{turn}{+90}\bgroup}
-\XeTeXinterchartoks 0 \periods = {\periodsBegin}
-\XeTeXinterchartoks 1 \periods = {\periodsBegin}
-\XeTeXinterchartoks 255 \periods = {\periodsBegin}
-\newcommand*{\periodsEnd} {\egroup\end{turn}\end{adjustbox}}
-\XeTeXinterchartoks \periods 0 = {\periodsEnd}
-\XeTeXinterchartoks \periods 1 = {\periodsEnd}
-\XeTeXinterchartoks \periods 255 = {\periodsEnd}
-
-
-
-\XeTeXinterchartoks \quotes \parens {\quotesEnd\parensBegin}
-\XeTeXinterchartoks \parens \quotes {\parensEnd\quotesBegin}
-
-
+%One day figure out how this works
+%http://tex.stackexchange.com/questions/38593/rotating-text-by-90-degrees
+\let\antilandscape\landscape
+\let\endantilandscape\endlandscape
+\def\LS@antirot{%
+%\setbox\@outputbox=\vbox{\hbox{\rotatebox{-180}{\box\@outputbox}}}
+\setbox\@outputbox=\vbox{\hbox{\rotatebox{-90}{\@rotl\@outputbox}}}
+}
+\patchcmd{\antilandscape}{\LS@rot}{\LS@antirot}{}{}
 
 \begin{document}
-I am a塵 super man. Super duper duper man. I am.性
-\begin{quote}
-A new German people! Heilq!k性必心講令令令令\rotatebox{45}{𠆭}講光。，直零
-\end{quote}
+	\input{other/insideCover.tex}
+	\tableofcontents
+	\pagestyle{myPage}
+	\chapterstyle{myChapter}
+	\CJKfamily{zhvert}
+	\punctstyle{plain}
 
-\begin{rotate}{-90}
-\begin{minipage}{15em}
-\CJKfamily{zhvert}
 
-%\CJKmove
-%\xeCJKsetwidth{。，、？！：；「」『』﹃﹄﹁﹂}{1.0em}
-%\punctstyle{quanjiao}
-性必心講令井令令𠆭講囧𠞉鐵感囧淋攞識啱用，愼慎西岸井疊羅漢囧生歲藍火。識（疊疊疊）疊疊；疊疊疊『疊疊疊疊疊疊疊，疊疊、疊、疊疊疊？疊、疊！疊。疊疊』疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊疊
-%\include{./part1/1}
-\end{minipage}
-\end{rotate}
-
+	\part{︵一︶}
+		\begin{antilandscape}
+		\chapter{第一章}
+		\input{part1/1.tex}
+		\end{antilandscape}
+		\chapter{第二章}
+		\input{part1/2.tex}
+	\part{︵二︶}
+	\part{︵三︶}
 \end{document}
