@@ -66,6 +66,10 @@ def findUnknownWords():
 	unknowns.close()
 
 def replaceVariants():
+	print("DID YOU MAKE A COMMIT FIRST? IF YOU DID NOT, DO IT NOW. OTHERWISE, ENTER 'YeS'")
+	if input() != "YeS":
+		return
+
 	chars = {"偽":"僞", "着":"著", "濕":"溼", "秘":"祕", "真":"眞", "鎮":"鎭", "啟":"啓", "羮":"羹", "舖":"鋪",  
 	#說文: the latter is sad whilst the former is happy
 	"歎":"嘆",

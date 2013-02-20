@@ -17,9 +17,12 @@
 \xeCJKDeclareSubCJKBlock{puncts}{"FE10 -> "FE19, "FE30 -> "FE48}
 \setCJKfamilyfont{zhvert}[puncts={[Vertical=RotatedGlyphs]{AR PL UMing HK}}, Vertical=RotatedGlyphs]{Sun-ExtA} 
 \setCJKfallbackfamilyfont{zhvert}[Vertical=RotatedGlyphs]{Sun-ExtB}
-
 \setCJKmainfont[puncts=AR PL UMing HK]{Sun-ExtA}
-\setCJKfallbackfamilyfont{rm}{Sun-ExtB}
+\setCJKfallbackfamilyfont{rm}[]{Sun-ExtB}
+
+%sbw = Sun-ExtB wrap
+\newcommand*{\sbw}[1]{\setmainfont{Sun-ExtB}#1\setmainfont{Sun-ExtA}}
+
 
 %。，、？！：；「」『』
 %︐︑︒︓︔︕︖﹃﹄﹁﹂︵︶︽︾︙︱
