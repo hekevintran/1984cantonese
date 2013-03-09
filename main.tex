@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{memoir}
+\documentclass[a4paper,14pt]{memoir}
 %No need to use -papersize
 \usepackage{fontspec}
 \setmainfont{Sun-ExtA}
@@ -11,7 +11,7 @@
 \usepackage{etoolbox}
 \newfontlanguage{Chinese}{CHN}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS
 
 %\xeCJKDeclareSubCJKBlock{puncts}{`。,`，,`、,`？,`！,`：,`；,`﹃,`﹄,`﹁,`﹂}
 \xeCJKDeclareSubCJKBlock{puncts}{"FE10 -> "FE19, "FE30 -> "FE48}
@@ -27,12 +27,18 @@
 %。，、？！：；「」『』
 %︐︑︒︓︔︕︖﹃﹄﹁﹂︵︶︽︾︙︱
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PAGE LAYOUT
+
+
+
 \makepagestyle{myPage}{%
 }
-\makeevenhead{myPage}{}{\thetitle}{\thepage}
+\makeevenhead{myPage}{}{\chaptername}{\thepage}
 \makeoddhead{myPage}{\thepage}{}{}
 \makeevenfoot{myPage}{}{}{}
 \makeoddfoot{myPage}{}{}{}
+
+
 
 \makechapterstyle{myChapter}{%
 	\def\chapterheadstart{\vspace*{\beforechapskip}}
@@ -74,8 +80,9 @@
 % A square of sidelength (1-x) consumes half of the area of a square of sidelength 1 if x=(2-sqrt(2))/2=0.29289321881345
 % (1-x)=0.70710678118655, n=0.41421356237309 where (1+n)*(1-x)=1, n/2=0.20710678118655
 \newcommand*{\fuse}[2]{{#1\raise0em\hbox{\scalebox{0.70710678118655}{\begin{adjustbox}{margin=0.20710678118655em 0em 0.20710678118655em 0em}{#2}\end{adjustbox}}}}}
+\renewcommand*{\emph}[1]{﹃#1﹄}
 
-\renewcommand*{\notenumintext}[1]{\hskip0em\raise0.4em\hbox{\rotatebox{90}{\tiny #1}}}
+\renewcommand*{\notenumintext}[1]{\hskip-1em\raise0.45em\hbox{\rotatebox{90}{\miniscule #1}}}
 \makepagenote
 \notepageref
 \renewcommand*{\notesname}{註釋}
