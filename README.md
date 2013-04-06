@@ -3,5 +3,5 @@
 
 A Vernacular Cantonese translation of George Orwell's Nineteen Eighty-Four, written with primordial characters (本字). 
 
-Everything on this repo is licensed under Creative Commons Attribution-ShareAlike 3.0 Unported (CC-BY-SA 3.0). 
-Details about the license are here: http://creativecommons.org/licenses/by-sa/3.0/legalcode
+Everything on this repo is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported.
+Details about the license are here: http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode
