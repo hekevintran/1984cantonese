@@ -1,0 +1,46 @@
+This is XeTeX, Version 3.1415926-2.4-0.9998 (TeX Live 2012/Debian) (format=xelatex 2013.1.26)  27 JAN 2013 10:47
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**xelatex main.tex
+(/usr/share/texlive/texmf-dist/tex/latex/tools/q.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
+File ignored
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> xelatex m
+             ain.tex
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no x in font nullfont!
+! Emergency stop.
+<*> xelatex main.tex
+                    
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 5 strings out of 495716
+ 154 string characters out of 3188883
+ 45143 words of memory out of 3000000
+ 3245 multiletter control sequences out of 15000+200000
+ 3640 words of font info for 14 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 5i,0n,4p,96b,14s stack positions out of 5000i,500n,10000p,200000b,50000s
+No pages of output.
