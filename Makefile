@@ -8,6 +8,8 @@ part2Files := $(foreach ch,$(part2),part2/$(ch).tex)
 part3Files := $(foreach ch,$(part3),part3/$(ch).tex)
 otherFiles := $(foreach filename,$(other), other/$(filename).tex)
  
-main.pdf: main.tex $(part1Files) $(part2Files) $(part3Files) $(otherFiles)
+main.pdf: main.tex main.bib $(part1Files) $(part2Files) $(part3Files) $(otherFiles)
+	xelatex main.tex
+	biber main
 	xelatex main.tex
 	xelatex main.tex
