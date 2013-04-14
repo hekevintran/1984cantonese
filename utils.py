@@ -81,7 +81,10 @@ def replaceVariants():
 	#︐︑︒︓︔︕︖﹃﹄﹁﹂︵︶︽︾︙︱
 	"「":"﹁","」":"﹂","『":"﹃","』":"﹄","，":"︐","、":"︑","。":"︒",
 "：":"︓","；":"︔","！":"︕","？":"︖","（":"︵","）":"︶","《":"",
-"》":"","—":"︱","…":"︙"," · ":"・"}
+"》":"","—":"︱","…":"︙"," · ":"・",
+
+	# Prevent telling spaces after every unusual character
+	"\n{":"%\n{", "}\n":"}%\n"}
 
 	for a,filename in allFiles():
 		#print("Replacing for " + filename)
