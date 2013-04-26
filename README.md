@@ -7,7 +7,7 @@ The goal of this project was to promote writing in Cantonese, and moreover to pr
 
 Of course, I also highly enjoy the book itself. That this happened to be a highly political book that I translated whilst Hong Kong struggles with installing democracy and universal suffrage was most likely a coincidence.
 
-Everything on this repo is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported.
+Everything on this repo is licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported. I, Quincy Lam (林立崑), am the author of this work.
 Details about the license are here: http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode
 
 Besides the text itself, "main.tex" may be useful for people interested in formatting vertical Chinese with XeLaTeX.
