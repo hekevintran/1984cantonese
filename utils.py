@@ -92,7 +92,7 @@ def replaceVariants():
 		originalLength = len(body)
 		for k,v in chars.items():
 			body = re.sub(k, v, body)
-			raise tuple([k,v,filename])
+			raise Exception(k,v,filename)
 		a.seek(0)
 		a.write(body)
 
