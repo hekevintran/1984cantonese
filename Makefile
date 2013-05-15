@@ -1,7 +1,7 @@
 part1 := 1 2 3 4 5 6 7 8
 part2 := 1 2 3 4 5 6 7 8 9
 part3 := 1 2 3 4 5 6
-other := foreword afterword insideCover glossary
+other := foreword afterword insideCover glossary appendix
 
 part1Files := $(foreach ch,$(part1),part1/$(ch).tex)
 part2Files := $(foreach ch,$(part2),part2/$(ch).tex)
