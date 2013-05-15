@@ -10,7 +10,7 @@ otherFiles := $(foreach filename,$(other), other/$(filename).tex)
  
 main.pdf: main.tex main.bib $(part1Files) $(part2Files) $(part3Files) $(otherFiles)
 	# Don't do a ritual commit, since the python script should remind you.
-	for file in $(part1Files) $(part2Files) $(part3Files) $(part4Files); do \
+	for file in $(part1Files) $(part2Files) $(part3Files) $(otherFiles); do \
 		cp $$file $$file.bak ; \
 		done
 	python3 utils.py		
