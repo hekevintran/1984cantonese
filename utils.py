@@ -92,7 +92,8 @@ def replaceVariants():
 		originalLength = len(body)
 		for k,v in chars.items():
 			body = re.sub(k, v, body)
-			raise Exception(k,v,filename)
+			if originalLength != len(body):
+				raise Exception(k,v,filename, originalLength, originalLength, len(body))
 		a.seek(0)
 		a.write(body)
 
