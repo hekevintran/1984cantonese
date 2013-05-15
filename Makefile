@@ -9,9 +9,9 @@ part3Files := $(foreach ch,$(part3),part3/$(ch).tex)
 otherFiles := $(foreach filename,$(other), other/$(filename).tex)
  
 main.pdf: main.tex main.bib $(part1Files) $(part2Files) $(part3Files) $(otherFiles)
-	git commit -a
+	# Don't do a ritual commit, since the python script should remind you.
 	for file in $(part1Files) $(part2Files) $(part3Files) $(part4Files); do \
-		cp $$file $$file.tmp ; \
+		cp $$file $$file.bak ; \
 		done
 	python3 utils.py		
 	xelatex main.tex
