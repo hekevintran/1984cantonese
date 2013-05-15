@@ -89,13 +89,18 @@ def replaceVariants():
 	for a,filename in allFiles():
 		#print("Replacing for " + filename)
 		body = a.read()
+		a.close()
 		originalLength = len(body)
 		for k,v in chars.items():
 			body = re.sub(k, v, body)
-			if originalLength != len(body):
-				raise Exception(k,v,filename, originalLength, originalLength, len(body))
+		"""
+		This is insufficient because the new string is often shorter.
 		a.seek(0)
 		a.write(body)
+		"""
+		b = open(filename, "w")
+		b.write(body)
+		b.close()
 
 def replaceGlobally(a,b):
 	for a,filename in allFiles():
