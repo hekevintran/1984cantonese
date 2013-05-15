@@ -89,8 +89,10 @@ def replaceVariants():
 	for a,filename in allFiles():
 		#print("Replacing for " + filename)
 		body = a.read()
+		originalLength = len(body)
 		for k,v in chars.items():
-			body = re.sub(k, v, body) 
+			body = re.sub(k, v, body)
+			raise k,v,filename
 		a.seek(0)
 		a.write(body)
 
