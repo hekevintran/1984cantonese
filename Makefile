@@ -20,7 +20,7 @@ main.pdf: main.tex main.bib $(part1Files) $(part2Files) $(part3Files) $(otherFil
 	biber main
 	xelatex main.tex
 	xelatex main.tex
-	for file in $(part1Files) $(part2Files) $(part3Files) $(part4Files); do \
+	for file in $(part1Files) $(part2Files) $(part3Files) $(otherFiles); do \
 		rm $$file ; \
 		mv $$file.$(backupSuffix) $$file ; \
 		done
