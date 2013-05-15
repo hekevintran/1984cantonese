@@ -9,7 +9,16 @@ part3Files := $(foreach ch,$(part3),part3/$(ch).tex)
 otherFiles := $(foreach filename,$(other), other/$(filename).tex)
  
 main.pdf: main.tex main.bib $(part1Files) $(part2Files) $(part3Files) $(otherFiles)
+	git commit -a
+	for file in $(part1Files) $(part2Files) $(part3Files) $(part4Files); do \
+		cp $$file $$file.tmp ; \
+		done
+	python3 utils.py		
 	xelatex main.tex
 	biber main
 	xelatex main.tex
 	xelatex main.tex
+	for file in $(part1Files) $(part2Files) $(part3Files) $(part4Files); do \
+		rm $$file ; \
+		mv $$file.tmp $$file ; \
+		done
