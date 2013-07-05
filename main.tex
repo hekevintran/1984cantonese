@@ -120,12 +120,19 @@
 	\begin{landscape}
 
 	\CJKfamily{zhvert}
+	
+	\begin{comment}
+	When you run make, some processing is done on the files, outputed as .tex2. 
+	These files are then included and put into the PDF.
+	Then they are deleted, so that the source .tex are untouched.
+	\end{comment}
+
 	\part[（一）]{︵一︶}
 	\chapter{第一章}
-	\input{part1/1.tex}
+	\input{part1/1.tex.formatted}
 
 	\chapter{第二章}
-	\input{part1/2.tex}
+	\input{part1/2.tex.formatted}
 	\part{︵二︶}
 	\part{︵三︶}
 	\end{landscape}	

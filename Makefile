@@ -8,19 +8,19 @@ part2Files := $(foreach ch,$(part2),part2/$(ch).tex)
 part3Files := $(foreach ch,$(part3),part3/$(ch).tex)
 otherFiles := $(foreach filename,$(other), other/$(filename).tex)
 
-backupSuffix = bak
+copySuffix = formatted
  
 main.pdf: main.tex main.bib $(part1Files) $(part2Files) $(part3Files) $(otherFiles)
 	# Don't do a ritual commit, since the python script should remind you.
-	for file in $(part1Files) $(part2Files) $(part3Files) $(otherFiles); do \
-		cp $$file $$file.$(backupSuffix) ; \
+	# Copies the files, appending a 2, and processes these copies
+	for file in $(part1Files) $(part2Files) $(part3Files) $(otherFiles) ; do \
+		cp $$file $$file.$(copySuffix) ; \
+		python3 utils.py $$file.$(copySuffix) ; \
 		done
-	python3 utils.py		
 	xelatex main.tex
 	biber main
 	xelatex main.tex
 	xelatex main.tex
-	for file in $(part1Files) $(part2Files) $(part3Files) $(otherFiles); do \
-		rm $$file ; \
-		mv $$file.$(backupSuffix) $$file ; \
+	for file in $(part1Files) $(part2Files) $(part3Files) $(otherFiles) ; do \
+		rm $$file.$(copySuffix) ; \
 		done

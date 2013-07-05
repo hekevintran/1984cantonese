@@ -13,6 +13,7 @@ updateStats: updates various statistics (tab-separated)
 
 import re
 from time import clock
+import sys
 
 allTexts = ["part1/" + str(n) + ".tex" for n in range(1,9)] + ["part2/" + str(n) + ".tex" for n in range(1,10)] + ["part3/" + str(n) + ".tex" for n in range(1,7)] + ["other/" + title +".tex" for title in ["foreword","appendix","afterword"]]
 
@@ -66,10 +67,12 @@ def findUnknownWords():
 	unknowns.write('\n'.join(toWrite))
 	unknowns.close()
 
-def replaceVariants():
+def replaceVariants(filesToWork = allFiles()):
+	"""
 	print("DID YOU MAKE A COMMIT FIRST? IF THE LATEX ERRORS, THE BACKUPS MAY NOT EXIST AND YOU WILL HAVE TO DISCARD YOUR UNCOMMITTED CHANGES TO GET RID OF ESOTERIC PUNCTUATION. IF YOU DID NOT, DO IT NOW. OTHERWISE, ENTER 'YeS'")
 	if input() != "YeS":
 		return
+	"""
 
 	chars = {"偽":"僞", "為":"爲", "着":"著", "濕":"溼", "秘":"祕", "真":"眞", "鎮":"鎭", "啟":"啓", "羮":"羹", "舖":"鋪",  "搵":"捃",
 	#說文: the latter is sad whilst the former is happy
@@ -92,7 +95,7 @@ def replaceVariants():
 	# Prevent telling spaces after every unusual character
 	"\n\\\\":"%\n\\\\", "}\n":"}%\n"}
 
-	for a,filename in allFiles():
+	for a,filename in filesToWork:
 		#print("Replacing for " + filename)
 		body = a.read()
 		a.close()
@@ -132,11 +135,16 @@ def updateStats():
 
 if __name__ == "__main__":
 	a = clock()
-	replaceVariants()	
-	print("Variants replaced: {} ticks".format(clock() - a))
-	findOccurences()
-	print("Occurences found: {} ticks".format(clock() - a))
-	findUnknownWords()
-	print("Unknown words found: {} ticks".format(clock() - a))
-	updateStats()
-	print("Elapsed: {} ticks".format(clock() - a))
+	if len(sys.argv) > 1:
+		replaceVariants(((open(filename, "r+"), filename) for filename in sys.argv[1:]))	
+		print("Variants replaced: {} ticks".format(clock() - a))
+	else:
+		# Everything
+		replaceVariants()	
+		print("Variants replaced: {} ticks".format(clock() - a))
+		findOccurences()
+		print("Occurences found: {} ticks".format(clock() - a))
+		findUnknownWords()
+		print("Unknown words found: {} ticks".format(clock() - a))
+		updateStats()
+		print("Elapsed: {} ticks".format(clock() - a))
