@@ -4,7 +4,7 @@
 %No need to use -papersize
 \usepackage{fontspec}
 \setmainfont{Sun-ExtA}
-\usepackage[fallback]{xeCJK}
+\usepackage[fallback, PunctStyle=quanjiao]{xeCJK}
 \usepackage{rotating}
 \usepackage{adjustbox}
 \usepackage{verbatim}
@@ -17,14 +17,43 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FONTS
 
-%\xeCJKDeclareSubCJKBlock{puncts}{`。,`，,`、,`？,`！,`：,`；,`﹃,`﹄,`﹁,`﹂}
-\xeCJKDeclareSubCJKBlock{puncts}{"FE10 -> "FE19, "FE30 -> "FE48}
-\setCJKfamilyfont{zhvert}[puncts={[Vertical=RotatedGlyphs]{AR PL UMing HK}}, Vertical=RotatedGlyphs]{Sun-ExtA} 
+% Upright punctuation
+% 3001,3002,300A,300B,300C,300D,300E,300F: 、。《》「」『』
+% FF0C:，
+% Rotated punctuation
+% FE10 - FE19: ︐︑︒︓︔︕︖︗︘
+% FE30 - FE48: ︰︱︲︳︴︵︶︷︸︹︺︻︼︽︾︿﹀﹁﹂﹃﹄﹅﹆
+%\xeCJKDeclareCharClass{HalfLeft}{`︵,`︽,`﹁,`﹃}
+%\xeCJKDeclareCharClass{HalfRight}{`︶,`︾,`﹂,`﹄,"FE10 -> "FE16,`︱,`︙,`・}
+%\xeCJKDeclareSubCJKBlock{puncts}{"FE10 -> "FE19, "FE30 -> "FE48}
+\xeCJKDeclareSubCJKBlock{puncts}{
+%Ranges gotten from xeCJK docs
+%Open punct
+ "2018 , "201C ,
+ "2329 , "3008 , "300A , "300C , "300E , "3010 , "3014 , "3016 , "3018 , "301A ,
+ "301D , "FE17 , "FE35 , "FE37 , "FE39 , "FE3B , "FE3D , "FE3F , "FE41 , "FE43 ,
+ "FE47 , "FE59 , "FE5B , "FE5D , "FF08 , "FF3B , "FF5B , "FF5F , "FF62,
+%Close punct
+ "00B7 , "2019 , "201D , "2014 , "2015 , "2025 , "2026 , "2027 , "2500 ,
+ "232A , "3001 , "3002 , "3009 , "300B , "300D , "300F , "3011 , "3015 , "3017 ,
+ "3019 , "301B , "301E , "301F , "FE11 , "FE12 , "FE18 , "FE36 , "FE38 , "FE3A ,
+ "FE3C , "FE3E , "FE40 , "FE42 , "FE44 , "FE48 , "FE50 , "FE52 , "FE5A , "FE5C ,
+ "FE5E , "FF09 , "FF0C , "FF0E , "FF3D , "FF5D , "FF60 , "FF61 , "FF63 , "FF64 ,
+%Nonstarter
+ "3005 , "301C , "303B , "303C , "309B , "309C , "309D , "309E , "30A0 , "30FB ,
+ "30FD , "30FE , "A015 , "FE54 , "FE55 , "FF1A , "FF1B , "FF65 , "FF9E , "FF9F,
+%Exclamation
+"FE15 , "FE16 , "FE56 , "FE57 , "FF01 , "FF1F,
+%Infix Separator
+"FE10 , "FE13 , "FE14
+}
+\setCJKfamilyfont{zhvert}[puncts={[Vertical=RotatedGlyphs]{AR PL UMing HK}}, Vertical=RotatedGlyphs]{Sun-ExtA}
 \setCJKfallbackfamilyfont{zhvert}[Vertical=RotatedGlyphs]{Sun-ExtB}
 \setCJKmainfont[puncts=AR PL UMing HK]{Sun-ExtA}
 \setCJKfallbackfamilyfont{rm}[]{Sun-ExtB}
-
 \setCJKfamilyfont{em}[puncts={[Vertical=RotatedGlyphs]{AR PL UKai HK}}, Vertical=RotatedGlyphs]{AR PL UKai HK}
+
+
 
 %sbw = Sun-ExtB wrap
 \newcommand*{\sbw}[1]{\setmainfont{Sun-ExtB}#1\setmainfont{Sun-ExtA}}
@@ -111,7 +140,8 @@
 	\input{other/insideCover.tex}
 	\pagestyle{myPage}
 	\chapterstyle{myChapter}
-	\punctstyle{quanjiao}
+
+
 	\setlength{\parindent}{1em}
 
 	\tableofcontents
@@ -132,7 +162,7 @@
 	\input{part1/1.tex.formatted}
 
 	\chapter{第二章}
-	\input{part1/2.tex.formatted}
+	%\input{part1/2.tex.formatted}
 	\part{︵二︶}
 	\part{︵三︶}
 	\end{landscape}	
